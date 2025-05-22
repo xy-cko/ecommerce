@@ -23,9 +23,6 @@ public interface VendorAccessRole {
     @EntityPolicy(entityName = "Product", actions = {EntityPolicyAction.ALL})
     @EntityAttributePolicy(entityName = "Product", attributes = "*", action = EntityAttributePolicyAction.MODIFY)
 
-    @EntityPolicy(entityName = "Product", actions = {EntityPolicyAction.ALL})
-    @EntityAttributePolicy(entityName = "Product", attributes = "*", action = EntityAttributePolicyAction.MODIFY)
-
     @EntityPolicy(entityName = "Order", actions = EntityPolicyAction.DELETE)
     @EntityAttributePolicy(entityName = "Order", attributes = "*", action = EntityAttributePolicyAction.VIEW)
 
@@ -37,6 +34,9 @@ public interface VendorAccessRole {
 
     @EntityPolicy(entityName = "User", actions = EntityPolicyAction.READ)
     @EntityAttributePolicy(entityName = "User", attributes = "*", action = EntityAttributePolicyAction.VIEW)
+
+    @EntityPolicy(entityName = "Cart", actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityName = "Cart", attributes = "*", action = EntityAttributePolicyAction.VIEW)
 
     @SpecificPolicy(resources = "ui.loginToUi")
 

@@ -57,4 +57,16 @@ public class MainView extends StandardMainView {
         viewNavigationSupport.navigate(ProductShowView.class, new RouteParameters(new RouteParam("id", product.getId().toString())));
     }
 
+    @Subscribe(id = "viewSecond", subject = "clickListener")
+    public void onViewSecondClick(final ClickEvent<JmixButton> event) {
+        Product product = product2Dc.getItem();
+        viewNavigationSupport.navigate(ProductShowView.class, new RouteParameters(new RouteParam("id", product.getId().toString())));
+    }
+
+    @Subscribe(id = "viewThird", subject = "clickListener")
+    public void onViewThirdClick(final ClickEvent<JmixButton> event) {
+        Product product = product3Dc.getItem();
+        viewNavigationSupport.navigate(ProductShowView.class, new RouteParameters(new RouteParam("id", product.getId().toString())));
+    }
+
 }

@@ -12,7 +12,6 @@
               title="msg://com.company.ecommerce.view.product/requestedProductListView.title"/>
         <item view="VendorOrderItem.list"
               title="msg://com.company.ecommerce.view.productcartitem/vendorOrderItemListView.title"/>
-        <item view="OrderItem.list" title="msg://com.company.ecommerce.view.productcartitem/orderItemListView.title"/>
         <item view="Category.list" title="msg://com.company.ecommerce.view.category/categoryListView.title"/>
         <item view="MyOrder.list" title="msg://com.company.ecommerce.view.cart/myOrderListView.title"/>
     </menu>
