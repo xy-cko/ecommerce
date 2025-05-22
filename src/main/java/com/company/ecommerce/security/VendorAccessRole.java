@@ -9,10 +9,13 @@ import io.jmix.securityflowui.role.annotation.ViewPolicy;
 @ResourceRole(name = "VendorAccessRole", code = VendorAccessRole.CODE)
 public interface VendorAccessRole {
     String CODE = "vendor-access-role";
-    @ViewPolicy(viewIds = {"LoginView", "MainView", "AllProduct.list", "Product.detail", "MyProduct.list", "Product.show",})
+    @ViewPolicy(viewIds = {"ProfileView","VendorOrderItem.list","Category.list","LoginView", "MainView", "AllProduct.list", "Product.detail", "MyProduct.list", "Product.show",})
     @ViewPolicy(viewIds = "UserRegisterView")
 
-    @MenuPolicy(menuIds = {"AllProduct.list", "MyProduct.list"})
+    @MenuPolicy(menuIds = {"ProfileView","AllProduct.list", "MyProduct.list", "VendorOrderItem.list"})
+
+    @EntityPolicy(entityName = "ProductCartItem", actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityName = "ProductCartItem", attributes = "*", action = EntityAttributePolicyAction.VIEW)
 
     @EntityPolicy(entityName = "Order", actions = {EntityPolicyAction.READ, EntityPolicyAction.UPDATE})
     @EntityAttributePolicy(entityName = "Order", attributes = "status", action = EntityAttributePolicyAction.MODIFY)
@@ -29,7 +32,12 @@ public interface VendorAccessRole {
     @EntityPolicy(entityName = "Status", actions = EntityPolicyAction.READ)
     @EntityAttributePolicy(entityName = "Status", attributes = "name", action = EntityAttributePolicyAction.VIEW)
 
+    @EntityPolicy(entityName = "Category", actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityName = "Category", attributes = "*", action = EntityAttributePolicyAction.VIEW)
+
     @EntityPolicy(entityName = "User", actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityName = "User", attributes = "*", action = EntityAttributePolicyAction.VIEW)
+
     @SpecificPolicy(resources = "ui.loginToUi")
 
     void vendorAccess();

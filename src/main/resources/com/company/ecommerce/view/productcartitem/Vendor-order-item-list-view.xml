@@ -8,6 +8,7 @@
                     class="com.company.ecommerce.entity.ProductCartItem">
             <fetchPlan extends="_base">
                 <property name="product" fetchPlan="_base"/>
+                <property name="cart" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="productCartItemsDl" readOnly="true">
                 <query>
@@ -47,11 +48,8 @@
                 <column property="unit"/>
                 <column property="amount"/>
                 <column property="date"/>
-                <column>
-                    <text property="cart.customer.username"
-                          caption="msg://customer"
-                          sortProperty="cart.customer.username"/>
-                </column>
+                <column property="paymentType"/>
+                <column property="cart.customerName"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

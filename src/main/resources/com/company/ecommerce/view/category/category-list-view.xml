@@ -6,9 +6,7 @@
     <data>
         <collection id="categoriesDc"
                     class="com.company.ecommerce.entity.Category">
-            <fetchPlan extends="_base">
-                <property name="parent" fetch="JOIN" fetchPlan="_base"/>
-            </fetchPlan>
+            <fetchPlan extends="_base"/>
             <loader id="categoriesDl" readOnly="true">
                 <query>
                     <![CDATA[select e from Category e]]>
@@ -34,6 +32,7 @@
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="categoriesDataGrid.createAction"/>
+            <button id="editButton" action="categoriesDataGrid.editAction"/>
             <button id="removeButton" action="categoriesDataGrid.removeAction"/>
             <simplePagination id="pagination" dataLoader="categoriesDl"/>
         </hbox>
@@ -44,11 +43,11 @@
                   columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
                 <column property="name"/>
-                <column property="parent"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

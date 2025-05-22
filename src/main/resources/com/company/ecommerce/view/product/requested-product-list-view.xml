@@ -11,7 +11,7 @@
             </fetchPlan>
             <loader id="productsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Product e where e.isAccepted = false]]>
+                    <![CDATA[select e from Product e where e.isAccepted = 'waiting']]>
                 </query>
             </loader>
         </collection>

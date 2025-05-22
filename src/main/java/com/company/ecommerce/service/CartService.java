@@ -32,9 +32,13 @@ public class CartService {
                     .query("SELECT s FROM Status s WHERE s.name = 'checked out'")
                     .one();
             order.setStatus(status);
-            order.setDate(LocalDate.now());
             cart.setStatus(status);
+            order.setDate(LocalDate.now());
             order.setTotal(calculateTotal(cart));
+            order.setPaymentType(paymentType);
+            cart.setPaymentType(paymentType);
+            cart.setCheckedOutDate(LocalDate.now());
+            cart.setTotal(calculateTotal(cart));
             List<ProductCartItem> productItemsInCart = dataManager.load(ProductCartItem.class)
                             .condition(PropertyCondition.equal("cart", cart)).list();
             for(ProductCartItem productItems : productItemsInCart) {
@@ -104,6 +108,7 @@ public class CartService {
                 .orElseGet(() -> {
                     Cart newCart = dataManager.create(Cart.class);
                     newCart.setCustomer(user);
+                    newCart.setCustomerName(user.getUsername());
                     newCart.setStatus(dataManager.load(Status.class).condition(PropertyCondition.equal("name", "not checked out")).one());
                     return dataManager.save(newCart);
                 });

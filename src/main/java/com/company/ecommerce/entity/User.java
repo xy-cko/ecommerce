@@ -30,6 +30,10 @@ public class User implements JmixUserDetails {
     @Column(name = "BALANCE")
     private Double balance;
 
+    public User(){
+        this.balance = 0.0;
+    }
+
     @Version
     @Column(name = "VERSION", nullable = false)
     private Integer version;

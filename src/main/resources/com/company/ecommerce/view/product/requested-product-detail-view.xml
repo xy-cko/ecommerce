@@ -32,6 +32,7 @@
         </flexLayout>
         <hbox id="detailActions">
             <button id="acceptButton" text="msg://acceptButton.text"/>
+            <button id="rejectButton" text="msg://rejectButton.text"/>
         </hbox>
     </layout>
 </view>

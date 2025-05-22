@@ -29,10 +29,10 @@ public class Product {
     private Category category;
 
     @Column(name = "IS_ACCEPTED")
-    private Boolean isAccepted;
+    private String isAccepted;
 
     public Product() {
-        this.isAccepted = false;
+        this.isAccepted = Acceptence.WAITING_FOR_APPROVAL.getId();
     }
 
     @OnDeleteInverse(DeletePolicy.CASCADE)
@@ -57,20 +57,20 @@ public class Product {
     @Column(name = "PRICE")
     private Double price;
 
+    public void setIsAccepted(Acceptence isAccepted) {
+        this.isAccepted = isAccepted == null ? null : isAccepted.getId();
+    }
+
+    public Acceptence getIsAccepted() {
+        return isAccepted == null ? null : Acceptence.fromId(isAccepted);
+    }
+
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Boolean getIsAccepted() {
-        return isAccepted;
-    }
-
-    public void setIsAccepted(Boolean isAccepted) {
-        this.isAccepted = isAccepted;
     }
 
     public Integer getUnitsSold() {

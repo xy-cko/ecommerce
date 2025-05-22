@@ -1,5 +1,6 @@
 package com.company.ecommerce.view.product;
 
+import com.company.ecommerce.entity.Acceptence;
 import com.company.ecommerce.entity.Product;
 import com.company.ecommerce.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
@@ -27,9 +28,19 @@ public class RequestedProductDetailView extends StandardDetailView<Product> {
     public void onAcceptButtonClick(final ClickEvent<JmixButton> event) {
         Product product = dataManager.load(Product.class)
                 .id(getEditedEntity().getId()).one();
-        product.setIsAccepted(true);
+        product.setIsAccepted(Acceptence.ACCEPTED);
         dataManager.save(product);
         notifications.create("accepted the product.").withPosition(Notification.Position.MIDDLE).show();
+        viewNavigationSupport.navigate("RequestedProduct.list");
+    }
+
+    @Subscribe(id = "rejectButton", subject = "clickListener")
+    public void onRejectButtonClick(final ClickEvent<JmixButton> event) {
+        Product product = dataManager.load(Product.class)
+                .id(getEditedEntity().getId()).one();
+        product.setIsAccepted(Acceptence.REJECTED);
+        dataManager.save(product);
+        notifications.create("rejected the product.").withPosition(Notification.Position.MIDDLE).show();
         viewNavigationSupport.navigate("RequestedProduct.list");
     }
 }

@@ -86,7 +86,7 @@ public class MyCartItemListView extends StandardListView<ProductCartItem> {
 
                                     notifications.create("successfully checked out").withPosition(Notification.Position.MIDDLE).show();
 
-                                    viewNavigationSupport.navigate("CustomerOrder_.list");
+                                    viewNavigationSupport.navigate("MyOrder.list");
 
                                     inputDialog.closeWithDefaultAction();
                                         }

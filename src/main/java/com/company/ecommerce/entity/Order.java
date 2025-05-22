@@ -19,6 +19,9 @@ public class Order {
     @Id
     private UUID id;
 
+    @Column(name = "PAYMENT_TYPE")
+    private String paymentType;
+
     @Column(name = "DATE_")
     private LocalDate date;
 
@@ -32,6 +35,14 @@ public class Order {
     @JoinColumn(name = "CART_ID")
     @OneToOne(fetch = FetchType.LAZY)
     private Cart cart;
+
+    public PaymentType getPaymentType() {
+        return paymentType == null ? null : PaymentType.fromId(paymentType);
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType == null ? null : paymentType.getId();
+    }
 
     public LocalDate getDate() {
         return date;

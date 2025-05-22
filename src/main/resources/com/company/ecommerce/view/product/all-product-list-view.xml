@@ -9,7 +9,7 @@
             <fetchPlan extends="_base"/>
             <loader id="productsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Product e where e.isAccepted = true]]>
+                    <![CDATA[select e from Product e where e.isAccepted = 'accepted']]>
                 </query>
             </loader>
         </collection>
@@ -36,7 +36,7 @@
                       columnReorderingAllowed="true">
                 <columns resizable="true">
                     <column property="name"/>
-                    <column property="price"/>
+                    <column property="price" header="msg://column.header"/>
                     <column property="stock"/>
                     <column property="unitsSold"/>
                     <column property="vendor"/>
