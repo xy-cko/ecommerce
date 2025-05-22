@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mainView xmlns="http://jmix.io/schema/flowui/main-view"
+          xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+          title="msg://MainView.title">
+    <data>
+        <collection id="bestProductsDc"
+                    class="com.company.ecommerce.entity.Product">
+            <loader id="bestProductsDl">
+                <query>
+                    <![CDATA[
+                    select p from Product p
+                    order by p.unitsSold desc
+                ]]>
+                </query>
+            </loader>
+        </collection>
+
+        <instance id="product1Dc" class="com.company.ecommerce.entity.Product"/>
+        <instance id="product2Dc" class="com.company.ecommerce.entity.Product"/>
+        <instance id="product3Dc" class="com.company.ecommerce.entity.Product"/>
+    </data>
+
+    <actions>
+        <action id="logoutAction" type="logout"/>
+    </actions>
+    <appLayout>
+        <navigationBar>
+            <header id="header" classNames="jmix-main-view-header">
+                <drawerToggle id="drawerToggle"
+                              classNames="jmix-main-view-drawer-toggle"
+                              themeNames="contrast"
+                              ariaLabel="msg://drawerToggle.ariaLabel"/>
+                <h1 id="viewTitle" classNames="jmix-main-view-title"/>
+            </header>
+        </navigationBar>
+        <drawerLayout>
+            <section id="section" classNames="jmix-main-view-section">
+                <h2 id="applicationTitle"
+                    classNames="jmix-main-view-application-title">
+                    <anchor id="baseLink"
+                            href="."
+                            text="msg://applicationTitle.text"
+                            classNames="jmix-main-view-application-title-base-link"/>
+                </h2>
+                <nav id="navigation"
+                     classNames="jmix-main-view-navigation"
+                     ariaLabel="msg://navigation.ariaLabel">
+                    <listMenu id="menu"/>
+                </nav>
+                <footer id="footer" classNames="jmix-main-view-footer">
+                    <userIndicator id="userIndicator"/>
+                    <button id="logoutButton"
+                            action="logoutAction"
+                            classNames="jmix-logout-button"/>
+                </footer>
+            </section>
+        </drawerLayout>
+        <initialLayout>
+            <header text="msg://header1.text" themeNames="badge" height="200%"/>
+            <hbox id="bestSellingBox" width="100%">
+                <vbox>
+                    <hbox>
+                        <textField id="product1Name" dataContainer="product1Dc" property="name" readOnly="true"/>
+                        <button id="viewFirst" text="msg://viewFirst.text"/>
+                    </hbox>
+                    <hbox>
+                        <textField dataContainer="product1Dc" label="msg://textField.label" property="unitsSold"
+                                   readOnly="true"/>
+                    </hbox>
+                    <image id="product1Image" property="image"
+                           dataContainer="product1Dc"
+                           width="380px" height="500px"
+                           classNames="image-preview"/>
+                </vbox>
+
+                <vbox>
+                    <hbox>
+                        <textField id="product2Name" property="name" dataContainer="product2Dc" readOnly="true"/>
+                        <button id="viewSecond" text="msg://viewSecond.text"/>
+                    </hbox>
+                    <textField dataContainer="product2Dc" label="msg://textField1.label" property="unitsSold"
+                               readOnly="true"/>
+                    <image id="product2Image" property="image"
+                           dataContainer="product2Dc"
+                           width="380px" height="500px"
+                           classNames="image-preview"/>
+                </vbox>
+
+                <vbox>
+                    <hbox>
+                        <textField id="product3Name" property="name" dataContainer="product3Dc" readOnly="true"/>
+                        <button id="viewThird" text="msg://viewThird.text"/>
+                    </hbox>
+                    <textField dataContainer="product3Dc" label="msg://textField2.label" property="unitsSold"
+                               readOnly="true"/>
+                    <image id="product3Image" property="image"
+                           dataContainer="product3Dc"
+                           width="380px" height="500px"
+                           classNames="image-preview"/>
+                </vbox>
+
+            </hbox>
+        </initialLayout>
+    </appLayout>
+</mainView>

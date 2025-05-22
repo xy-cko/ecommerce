@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://vendorOrderItemListView.title"
+      focusComponent="productCartItemsDataGrid">
+    <data>
+        <collection id="productCartItemsDc"
+                    class="com.company.ecommerce.entity.ProductCartItem">
+            <fetchPlan extends="_base">
+                <property name="product" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="productCartItemsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from ProductCartItem e where e.product.vendor.id = :current_user_id]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="productCartItemsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <simplePagination id="pagination" dataLoader="productCartItemsDl"/>
+        </hbox>
+        <dataGrid id="productCartItemsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="productCartItemsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+            </actions>
+            <columns resizable="true">
+                <column property="product"/>
+                <column property="unit"/>
+                <column property="amount"/>
+                <column property="date"/>
+                <column>
+                    <text property="cart.customer.username"
+                          caption="msg://customer"
+                          sortProperty="cart.customer.username"/>
+                </column>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,35 @@
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://productShowView.title"
+      focusComponent="form">
+    <data>
+        <instance id="productDc"
+                  class="com.company.ecommerce.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <flexLayout id="form" flexDirection="ROW" alignItems="START">
+            <image id="imagePreview"
+                   width="400px"
+                   height="500px"
+                   dataContainer="productDc"
+                   property="image"
+                   classNames="image-preview"/>
+            <flexLayout flexDirection="COLUMN" width="300px" alignItems="CENTER">
+                <textField id="nameField" property="name" readOnly="true" label="msg://nameArea.label"
+                           dataContainer="productDc"/>
+                <textField id="priceField" property="price" readOnly="true" label="msg://priceArea.label"
+                           dataContainer="productDc"/>
+                <textField id="stockField" property="stock" readOnly="true" label="msg://stockField1.label"
+                           dataContainer="productDc"/>
+            </flexLayout>
+        </flexLayout>
+        <hbox id="detailActions">
+            <button id="addToCartButton" title="msg://addToCartButton.title" text="msg://addToCartButton.text"/>
+        </hbox>
+    </layout>
+</view>

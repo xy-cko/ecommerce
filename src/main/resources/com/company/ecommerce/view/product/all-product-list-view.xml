@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://myProductListView.title"
+      focusComponent="productsDataGrid">
+    <data>
+        <collection id="productsDc"
+                    class="com.company.ecommerce.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Product e where e.isAccepted = true]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+            <genericFilter id="genericFilter"
+                           dataLoader="productsDl">
+                <properties include=".*"/>
+            </genericFilter>
+            <dataGrid id="productsDataGrid"
+                      width="100%"
+                      minHeight="20em"
+                      dataContainer="productsDc"
+                      columnReorderingAllowed="true">
+                <columns resizable="true">
+                    <column property="name"/>
+                    <column property="price"/>
+                    <column property="stock"/>
+                    <column property="unitsSold"/>
+                    <column property="vendor"/>
+                    <column property="category"/>
+                </columns>
+            </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectButton" action="selectAction"/>
+                    <button id="discardButton" action="discardAction"/>
+                </hbox>
+    </layout>
+</view>
