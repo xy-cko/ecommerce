@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class CartService {
@@ -92,6 +95,7 @@ public class CartService {
             newItem.setProduct(product);
             newItem.setUnit(units);
             newItem.setAmount(units * product.getPrice());
+            dataManager.save(cart);
             dataManager.save(newItem);
         }
         product.setStock(product.getStock().subtract(BigInteger.valueOf(units)));

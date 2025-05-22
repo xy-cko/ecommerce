@@ -25,10 +25,10 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-            <genericFilter id="genericFilter"
-                           dataLoader="productsDl">
-                <properties include=".*"/>
-            </genericFilter>
+        <genericFilter id="genericFilter"
+                       dataLoader="productsDl">
+            <properties include=".*"/>
+        </genericFilter>
             <dataGrid id="productsDataGrid"
                       width="100%"
                       minHeight="20em"
@@ -38,7 +38,7 @@
                     <column property="name"/>
                     <column property="price" header="msg://column.header"/>
                     <column property="stock"/>
-                    <column property="unitsSold"/>
+                    <column property="unitsSold" header="msg://column1.header"/>
                     <column property="vendor"/>
                     <column property="category"/>
                 </columns>

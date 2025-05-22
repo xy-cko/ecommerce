@@ -7,11 +7,10 @@
         <collection id="cartsDc"
                     class="com.company.ecommerce.entity.Cart">
             <fetchPlan extends="_base">
-                <property name="status" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="cartsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Cart e where e.customer.id = :current_user_id and e.status.name = 'checked out']]>
+                    <![CDATA[select e from Cart e where e.customer.id = :current_user_id]]>
                 </query>
             </loader>
         </collection>
@@ -38,14 +37,14 @@
         <dataGrid id="cartsDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="cartsDc">
+                  dataContainer="cartsDc"
+                  columnReorderingAllowed="true">
             <actions>
             </actions>
             <columns resizable="true">
                 <column property="paymentType"/>
                 <column property="checkedOutDate"/>
                 <column property="total"/>
-                <column property="status"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
