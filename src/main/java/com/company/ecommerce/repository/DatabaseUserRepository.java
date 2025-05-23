@@ -1,6 +1,7 @@
-package com.company.ecommerce.security;
+package com.company.ecommerce.repository;
 
 import com.company.ecommerce.entity.User;
+import com.company.ecommerce.security.FullAccessRole;
 import io.jmix.securitydata.user.AbstractDatabaseUserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;

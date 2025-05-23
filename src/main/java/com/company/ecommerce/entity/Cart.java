@@ -39,9 +39,6 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     private Status status;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cart")
-    private Order order;
-
     public Double getTotal() {
         return total;
     }
@@ -72,14 +69,6 @@ public class Cart {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public Status getStatus() {

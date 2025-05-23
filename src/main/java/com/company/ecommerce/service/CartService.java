@@ -27,18 +27,12 @@ public class CartService {
     @Transactional
     public void processCheckOut(Cart cart, PaymentType paymentType) {
         try {
-            // Create order
             User user = cart.getCustomer();
-            Order order = dataManager.create(Order.class);
-            order.setCart(cart);
+
             Status status = dataManager.load(Status.class)
                     .query("SELECT s FROM Status s WHERE s.name = 'checked out'")
                     .one();
-            order.setStatus(status);
             cart.setStatus(status);
-            order.setDate(LocalDate.now());
-            order.setTotal(calculateTotal(cart));
-            order.setPaymentType(paymentType);
             cart.setPaymentType(paymentType);
             cart.setCheckedOutDate(LocalDate.now());
             cart.setTotal(calculateTotal(cart));
@@ -58,7 +52,6 @@ public class CartService {
                 }
             }
             dataManager.save(user);
-            dataManager.save(order);
             dataManager.save(cart);
 
         } catch (Exception e) {
