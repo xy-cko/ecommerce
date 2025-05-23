@@ -12,7 +12,7 @@ import io.jmix.securityflowui.role.annotation.ViewPolicy;
 @ResourceRole(name = "CustomerAccessRole", code = CustomerAccessRole.CODE)
 public interface CustomerAccessRole {
     String CODE = "customer-access-role";
-    @ViewPolicy(viewIds = {"OrderItem.list","ProfileView","LoginView", "MainView", "AllProduct.list", "Product.detail", "Product.show", "MyCartItem.list", "inputDialog", "MyOrder.list",})
+    @ViewPolicy(viewIds = {"Category.list","OrderItem.list","ProfileView","LoginView", "MainView", "AllProduct.list", "Product.detail", "Product.show", "MyCartItem.list", "inputDialog", "MyOrder.list",})
 
     @MenuPolicy(menuIds = {"ProfileView", "AllProduct.list", "MyCartItem.list", "MyOrder.list"})
 
@@ -43,6 +43,9 @@ public interface CustomerAccessRole {
     @EntityPolicy(entityName = "User", actions = {EntityPolicyAction.READ, EntityPolicyAction.UPDATE})
     @EntityAttributePolicy(entityName = "User", attributes = "balance", action = EntityAttributePolicyAction.MODIFY)
     @EntityAttributePolicy(entityName = "User", attributes = "*", action = EntityAttributePolicyAction.VIEW)
+
+    @EntityPolicy(entityName = "Category", actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityName = "Category", attributes = "*", action = EntityAttributePolicyAction.VIEW)
 
 
     @SpecificPolicy(resources = "ui.loginToUi")
