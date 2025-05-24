@@ -1,7 +1,10 @@
 package com.company.ecommerce.view.productcartitem;
 
+import com.company.ecommerce.entity.Cart;
+import com.company.ecommerce.entity.PaymentType;
+import com.company.ecommerce.entity.Product;
+import com.company.ecommerce.entity.ProductCartItem;
 import com.company.ecommerce.service.CartService;
-import com.company.ecommerce.entity.*;
 import com.company.ecommerce.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.notification.Notification;
@@ -9,21 +12,23 @@ import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
 import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.Notifications;
-import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.action.inputdialog.InputDialogAction;
 import io.jmix.flowui.app.inputdialog.InputDialog;
 import io.jmix.flowui.app.inputdialog.InputParameter;
 import io.jmix.flowui.component.grid.DataGrid;
-import io.jmix.flowui.kit.action.BaseAction;
 import io.jmix.flowui.kit.component.button.JmixButton;
-import io.jmix.flowui.view.*;
+import io.jmix.flowui.view.DialogMode;
+import io.jmix.flowui.view.LookupComponent;
+import io.jmix.flowui.view.StandardListView;
+import io.jmix.flowui.view.Subscribe;
+import io.jmix.flowui.view.ViewComponent;
+import io.jmix.flowui.view.ViewController;
+import io.jmix.flowui.view.ViewDescriptor;
 import io.jmix.flowui.view.navigation.ViewNavigationSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Route(value = "my-cart-items", layout = MainView.class)
@@ -78,17 +83,17 @@ public class MyCartItemListView extends StandardListView<ProductCartItem> {
                         InputDialogAction.action("proceed")
                                 .withText("Proceed")
                                 .withHandler(actionEvent -> {
-                                    InputDialogAction inputDialogAction = ((InputDialogAction) actionEvent.getSource());
-                                    InputDialog inputDialog = inputDialogAction.getInputDialog();
+                                            InputDialogAction inputDialogAction = ((InputDialogAction) actionEvent.getSource());
+                                            InputDialog inputDialog = inputDialogAction.getInputDialog();
 
-                                    PaymentType paymentType = inputDialog.getValue("paymentType");
-                                    cartService.processCheckOut(cart, paymentType);
+                                            PaymentType paymentType = inputDialog.getValue("paymentType");
+                                            cartService.processCheckOut(cart, paymentType);
 
-                                    notifications.create("successfully checked out").withPosition(Notification.Position.MIDDLE).show();
+                                            notifications.create("successfully checked out").withPosition(Notification.Position.MIDDLE).show();
 
-                                    viewNavigationSupport.navigate("CustomerOrder_.list");
+                                            viewNavigationSupport.navigate("CustomerOrder_.list");
 
-                                    inputDialog.closeWithDefaultAction();
+                                            inputDialog.closeWithDefaultAction();
                                         }
                                 ),
                         InputDialogAction.action("cancel").withText("Cancel")

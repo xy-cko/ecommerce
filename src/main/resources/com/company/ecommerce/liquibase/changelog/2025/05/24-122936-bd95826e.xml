@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ecommerce">
+        <createTable tableName="CART">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CART"/>
+            </column>
+            <column name="CUSTOMER_ID" type="UUID"/>
+            <column name="CUSTOMER_NAME" type="VARCHAR(255)"/>
+            <column name="STATUS_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="ecommerce">
+        <createTable tableName="CATEGORY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CATEGORY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="PARENT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="ecommerce">
+        <createTable tableName="ORDER_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ORDER_"/>
+            </column>
+            <column name="DATE_" type="DATE"/>
+            <column name="TOTAL" type="DOUBLE"/>
+            <column name="STATUS_ID" type="UUID"/>
+            <column name="CART_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="ecommerce">
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRODUCT"/>
+            </column>
+            <column name="CATEGORY_ID" type="UUID"/>
+            <column name="IS_ACCEPTED" type="BOOLEAN"/>
+            <column name="VENDOR_ID" type="UUID"/>
+            <column name="UNITS_SOLD" type="INT"/>
+            <column name="STOCK" type="DECIMAL(19)"/>
+            <column name="IMAGE" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="PRICE" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="ecommerce">
+        <createTable tableName="PRODUCT_CART_ITEM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRODUCT_CART_ITEM"/>
+            </column>
+            <column name="PAYMENT_TYPE" type="VARCHAR(255)"/>
+            <column name="DATE_" type="DATE"/>
+            <column name="CART_ID" type="UUID"/>
+            <column name="PRODUCT_ID" type="UUID"/>
+            <column name="UNIT" type="INT"/>
+            <column name="AMOUNT" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="ecommerce">
+        <createTable tableName="STATUS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STATUS"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="ecommerce">
+        <addColumn tableName="USER_">
+            <column name="BALANCE" type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="8" author="ecommerce">
+        <createIndex indexName="IDX_CART_CUSTOMER" tableName="CART">
+            <column name="CUSTOMER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="CART" constraintName="FK_CART_ON_CUSTOMER"
+                                 referencedColumnNames="ID" referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="9" author="ecommerce">
+        <createIndex indexName="IDX_CART_STATUS" tableName="CART">
+            <column name="STATUS_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="STATUS_ID" baseTableName="CART" constraintName="FK_CART_ON_STATUS"
+                                 referencedColumnNames="ID" referencedTableName="STATUS"/>
+    </changeSet>
+    <changeSet id="10" author="ecommerce">
+        <createIndex indexName="IDX_CATEGORY_PARENT" tableName="CATEGORY">
+            <column name="PARENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PARENT_ID" baseTableName="CATEGORY"
+                                 constraintName="FK_CATEGORY_ON_PARENT" referencedColumnNames="ID"
+                                 referencedTableName="CATEGORY"/>
+    </changeSet>
+    <changeSet id="11" author="ecommerce">
+        <createIndex indexName="IDX_ORDER__CART" tableName="ORDER_">
+            <column name="CART_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CART_ID" baseTableName="ORDER_" constraintName="FK_ORDER__ON_CART"
+                                 referencedColumnNames="ID" referencedTableName="CART"/>
+    </changeSet>
+    <changeSet id="12" author="ecommerce">
+        <createIndex indexName="IDX_ORDER__STATUS" tableName="ORDER_">
+            <column name="STATUS_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="STATUS_ID" baseTableName="ORDER_" constraintName="FK_ORDER__ON_STATUS"
+                                 referencedColumnNames="ID" referencedTableName="STATUS"/>
+    </changeSet>
+    <changeSet id="13" author="ecommerce">
+        <createIndex indexName="IDX_PRODUCT_CART_ITEM_CART" tableName="PRODUCT_CART_ITEM">
+            <column name="CART_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CART_ID" baseTableName="PRODUCT_CART_ITEM"
+                                 constraintName="FK_PRODUCT_CART_ITEM_ON_CART" referencedColumnNames="ID"
+                                 referencedTableName="CART"/>
+    </changeSet>
+    <changeSet id="14" author="ecommerce">
+        <createIndex indexName="IDX_PRODUCT_CART_ITEM_PRODUCT" tableName="PRODUCT_CART_ITEM">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="PRODUCT_CART_ITEM"
+                                 constraintName="FK_PRODUCT_CART_ITEM_ON_PRODUCT" referencedColumnNames="ID"
+                                 referencedTableName="PRODUCT"/>
+    </changeSet>
+    <changeSet id="15" author="ecommerce">
+        <createIndex indexName="IDX_PRODUCT_CATEGORY" tableName="PRODUCT">
+            <column name="CATEGORY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CATEGORY_ID" baseTableName="PRODUCT"
+                                 constraintName="FK_PRODUCT_ON_CATEGORY" referencedColumnNames="ID"
+                                 referencedTableName="CATEGORY"/>
+    </changeSet>
+    <changeSet id="16" author="ecommerce">
+        <createIndex indexName="IDX_PRODUCT_VENDOR" tableName="PRODUCT">
+            <column name="VENDOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="VENDOR_ID" baseTableName="PRODUCT"
+                                 constraintName="FK_PRODUCT_ON_VENDOR" onDelete="CASCADE" referencedColumnNames="ID"
+                                 referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="17" author="ecommerce">
+        <dropColumn columnName="TIME_ZONE_ID" tableName="USER_"/>
+    </changeSet>
+</databaseChangeLog>

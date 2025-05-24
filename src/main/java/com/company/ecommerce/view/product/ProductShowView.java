@@ -1,7 +1,9 @@
 package com.company.ecommerce.view.product;
 
+import com.company.ecommerce.entity.Cart;
+import com.company.ecommerce.entity.Product;
+import com.company.ecommerce.entity.User;
 import com.company.ecommerce.service.CartService;
-import com.company.ecommerce.entity.*;
 import com.company.ecommerce.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.notification.Notification;
@@ -15,7 +17,12 @@ import io.jmix.flowui.app.inputdialog.DialogOutcome;
 import io.jmix.flowui.app.inputdialog.InputParameter;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.InstanceContainer;
-import io.jmix.flowui.view.*;
+import io.jmix.flowui.view.EditedEntityContainer;
+import io.jmix.flowui.view.StandardDetailView;
+import io.jmix.flowui.view.Subscribe;
+import io.jmix.flowui.view.ViewComponent;
+import io.jmix.flowui.view.ViewController;
+import io.jmix.flowui.view.ViewDescriptor;
 import io.jmix.flowui.view.navigation.ViewNavigationSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,6 +53,7 @@ public class ProductShowView extends StandardDetailView<Product> {
 
     @Autowired
     private Notifications notifications;
+
     @Subscribe(id = "addToCartButton", subject = "clickListener")
     public void onAddToCartButtonClick(final ClickEvent<JmixButton> event) {
         Product product = dataManager.load(Product.class)
@@ -62,7 +70,7 @@ public class ProductShowView extends StandardDetailView<Product> {
                 )
                 .withActions(DialogActions.OK_CANCEL)
                 .withCloseListener(closeEvent -> {
-                    if(!closeEvent.closedWith(DialogOutcome.OK)){
+                    if (!closeEvent.closedWith(DialogOutcome.OK)) {
                         return;
                     }
                     int unit = closeEvent.getValue("unit");
@@ -87,6 +95,7 @@ public class ProductShowView extends StandardDetailView<Product> {
                         notifications.create("Error adding to cart: " + e.getMessage())
                                 .withType(Notifications.Type.ERROR)
                                 .show();
+                        e.printStackTrace();
                     }
                 })
                 .open();

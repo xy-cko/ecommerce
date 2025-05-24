@@ -1,11 +1,16 @@
 package com.company.ecommerce.service;
 
-import com.company.ecommerce.entity.*;
+import com.company.ecommerce.entity.Cart;
+import com.company.ecommerce.entity.Order;
+import com.company.ecommerce.entity.PaymentType;
+import com.company.ecommerce.entity.Product;
+import com.company.ecommerce.entity.ProductCartItem;
+import com.company.ecommerce.entity.Status;
+import com.company.ecommerce.entity.User;
 import io.jmix.core.DataManager;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.flowui.Notifications;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.auditing.CurrentDateTimeProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +41,8 @@ public class CartService {
             cart.setStatus(status);
             order.setTotal(calculateTotal(cart));
             List<ProductCartItem> productItemsInCart = dataManager.load(ProductCartItem.class)
-                            .condition(PropertyCondition.equal("cart", cart)).list();
-            for(ProductCartItem productItems : productItemsInCart) {
+                    .condition(PropertyCondition.equal("cart", cart)).list();
+            for (ProductCartItem productItems : productItemsInCart) {
                 productItems.setDate(LocalDate.now());
                 productItems.setPaymentType(paymentType);
                 Product product = productItems.getProduct();
@@ -45,8 +50,11 @@ public class CartService {
                 dataManager.save(product);
                 dataManager.save(productItems);
             }
-            if(paymentType == PaymentType.CASH){
-                for(ProductCartItem productItems : productItemsInCart) {
+            if (paymentType == PaymentType.CASH) {
+                if (user.getBalance() == null) {
+                    user.setBalance(Double.valueOf(0));
+                }
+                for (ProductCartItem productItems : productItemsInCart) {
                     user.setBalance(user.getBalance() + productItems.getAmount());
                 }
             }
@@ -56,7 +64,7 @@ public class CartService {
 
         } catch (Exception e) {
             notifications.create("Checkout failed").show();
-            throw e;
+            e.printStackTrace();
         }
     }
 
