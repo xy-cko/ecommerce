@@ -136,9 +136,4 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     public void onRegisterButtonClick(final ClickEvent<JmixButton> event) {
         viewNavigators.view(this, UserRegisterView.class).navigate();
     }
-
-    @Subscribe(id = "registerButton", subject = "singleClickListener")
-    public void onRegisterButtonClick1(final ClickEvent<JmixButton> event) {
-        viewNavigators.view(this, UserRegisterView.class).navigate();
-    }
 }

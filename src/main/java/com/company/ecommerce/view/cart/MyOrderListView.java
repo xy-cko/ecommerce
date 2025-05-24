@@ -38,17 +38,6 @@ public class MyOrderListView extends StandardListView<Cart> {
             OrderItemsQuery.setCartId(selectedCart.getId());
             viewNavigators.listView(ProductCartItem.class)
                     .withViewClass(OrderItemListView.class).navigate();
-
-
-            /*viewNavigators.listView(ProductCartItem.class)
-                    .withViewClass(OrderItemListView.class)
-                    .withRouteParameters(new RouteParameters(
-                            new RouteParam("cartId", selectedCart.getId().toString())
-                    ))
-                    .navigate();
-
-             */
-
         }
     }
 }

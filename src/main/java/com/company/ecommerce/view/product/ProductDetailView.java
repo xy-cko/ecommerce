@@ -46,7 +46,7 @@ public class ProductDetailView extends StandardDetailView<Product> {
             FileRef fileRef = temporaryStorage.putFileIntoStorage(fileId, event.getFileName());
             getEditedEntity().setImage(fileRef);
             notifications.create("Image uploaded successfully")
-                    .withPosition(Notification.Position.BOTTOM_END)
+                    .withPosition(Notification.Position.MIDDLE)
                     .show();
         }
     }
