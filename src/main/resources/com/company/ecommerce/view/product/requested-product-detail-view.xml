@@ -12,7 +12,7 @@
         <dataLoadCoordinator auto="true"/>
     </facets>
     <layout>
-        <flexLayout id="form" flexDirection="ROW" alignItems="START">
+        <flexLayout id="form" classNames="productForm" alignItems="START">
             <image id="imagePreview"
                    width="400px"
                    height="500px"

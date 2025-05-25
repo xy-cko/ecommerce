@@ -16,11 +16,18 @@
                 </query>
             </loader>
         </collection>
+        <collection id="categoryDc" class="com.company.ecommerce.entity.Category">
+            <fetchPlan extends="_base"/>
+            <loader id="categoryDl" readOnly="true">
+                <query>
+                    <![CDATA[select c from Category c]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -29,10 +36,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="productCartItemsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <propertyFilter property="product.name" operation="CONTAINS" dataLoader="productCartItemsDl" label="product name contains:"/>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <simplePagination id="pagination" dataLoader="productCartItemsDl"/>
         </hbox>

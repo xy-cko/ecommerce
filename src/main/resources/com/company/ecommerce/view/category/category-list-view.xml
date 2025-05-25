@@ -32,8 +32,6 @@
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="categoriesDataGrid.createAction"/>
-            <button id="editButton" action="categoriesDataGrid.editAction"/>
-            <button id="removeButton" action="categoriesDataGrid.removeAction"/>
             <simplePagination id="pagination" dataLoader="categoriesDl"/>
         </hbox>
         <dataGrid id="categoriesDataGrid"
@@ -43,8 +41,6 @@
                   columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
-                <action id="editAction" type="list_edit"/>
-                <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
                 <column property="name"/>
