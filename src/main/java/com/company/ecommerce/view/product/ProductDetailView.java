@@ -5,6 +5,7 @@ import com.company.ecommerce.entity.User;
 import com.company.ecommerce.view.main.MainView;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
+import io.jmix.core.DataManager;
 import io.jmix.core.FileRef;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.flowui.Notifications;
@@ -15,6 +16,7 @@ import io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent;
 import io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent;
 import io.jmix.flowui.upload.TemporaryStorage;
 import io.jmix.flowui.view.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -29,12 +31,10 @@ public class ProductDetailView extends StandardDetailView<Product> {
     private Notifications notifications;
     @Autowired
     private CurrentAuthentication currentAuthentication;
-
-    @ViewComponent
-    private FileStorageUploadField imageField;
-
     @Autowired
     private TemporaryStorage temporaryStorage;
+    @Autowired
+    private DataManager dataManager;
 
     @Subscribe("imageField")
     public void onFileFieldFileUploadSucceeded(final FileUploadSucceededEvent<FileStorageUploadField> event) {
@@ -61,9 +61,11 @@ public class ProductDetailView extends StandardDetailView<Product> {
     @Subscribe("saveAction")
     public void onSaveAction(final ActionPerformedEvent event) {
         Product product = getEditedEntity();
-
-        User currentUser = (User) currentAuthentication.getUser();
-        product.setVendor(currentUser);
+        if(product != null) {
+            User currentUser = (User) currentAuthentication.getUser();
+            product.setVendor(currentUser);
+            dataManager.save(product);
+        }
 
         if (product.getImage() == null) {
             notifications.create("Please upload a product image")
@@ -71,7 +73,6 @@ public class ProductDetailView extends StandardDetailView<Product> {
                     .show();
             return;
         }
-
         closeWithSave();
 
     }

@@ -46,11 +46,11 @@
                       dataContainer="productsDc"
                       columnReorderingAllowed="true">
                 <columns resizable="true">
-                    <column property="name"/>
+                    <column property="name" header="msg://column2.header"/>
                     <column property="price" header="msg://column.header"/>
-                    <column property="stock"/>
+                    <column property="stock" header="msg://column3.header"/>
                     <column property="unitsSold" header="msg://column1.header"/>
-                    <column property="vendor"/>
+                    <column property="vendor" header="msg://column4.header"/>
                     <column property="category"/>
                 </columns>
             </dataGrid>

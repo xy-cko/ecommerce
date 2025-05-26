@@ -48,9 +48,11 @@ public class MyCartItemListView extends StandardListView<ProductCartItem> {
     @Subscribe(id = "removeButton", subject = "clickListener")
     public void onRemoveButtonClick(final ClickEvent<JmixButton> event) {
         ProductCartItem editedCartItem = productCartItemsDataGrid.getSingleSelectedItem();
-        Product product = editedCartItem.getProduct();
-        product.setStock(product.getStock().add(BigInteger.valueOf(editedCartItem.getUnit())));
-        dataManager.save(product);
+        if (editedCartItem != null) {
+            Product product = editedCartItem.getProduct();
+            product.setStock(product.getStock().add(BigInteger.valueOf(editedCartItem.getUnit())));
+            dataManager.save(product);
+        }
     }
 
     @Subscribe(id = "checkOutButton", subject = "clickListener")

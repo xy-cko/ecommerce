@@ -23,30 +23,13 @@ import java.util.UUID;
 @DialogMode(width = "64em")
 public class OrderItemListView extends StandardListView<ProductCartItem> {
     @ViewComponent
-    private CollectionContainer<ProductCartItem> productCartItemsDc;
-    @ViewComponent
     private CollectionLoader<ProductCartItem> productCartItemsDl;
-    @Autowired
-    private Notifications notifications;
 
     @Subscribe
     public void onInit(BeforeShowEvent event) {
         UUID cartId = OrderItemsQuery.getCartId();
         productCartItemsDl.setParameter("cartId", cartId);
         productCartItemsDl.load();
-
-        /*
-        List<ProductCartItem> allItems = productCartItemsDc.getItems();
-        List<ProductCartItem> theOrderItems = new ArrayList<>();
-        for (ProductCartItem productCartItem : allItems) {
-
-            if(Objects.equals(productCartItem.getCart().getId().toString(), OrderItemsQuery.getCartId().toString())) {
-                theOrderItems.add(productCartItem);
-            }
-        }
-        productCartItemsDc.setItems(theOrderItems);
-
-         */
     }
 
 }

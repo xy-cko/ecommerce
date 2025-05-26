@@ -34,7 +34,6 @@ public class MyOrderListView extends StandardListView<Cart> {
     public void onCartsDataGridItemClick(final ItemClickEvent<Cart> event) {
         Cart selectedCart = event.getItem();
         if (selectedCart != null) {
-            notifications.create(selectedCart.getId().toString()).show();
             OrderItemsQuery.setCartId(selectedCart.getId());
             viewNavigators.listView(ProductCartItem.class)
                     .withViewClass(OrderItemListView.class).navigate();

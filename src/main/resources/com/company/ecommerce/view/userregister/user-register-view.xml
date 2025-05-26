@@ -16,7 +16,7 @@
                 <textField id="emailField" label="Email"/>
             </formLayout>
             <button id="registerBtn" text="Register" themeNames="primary" width="100%"/>
-            <button id="alreadyRegisteredBtn" text="Already registered" themeNames="tertiary small"/>
+            <button id="alreadyRegisteredBtn" text="Already registered?" themeNames="primary" width="100%"/>
         </vbox>
     </layout>
 </view>
