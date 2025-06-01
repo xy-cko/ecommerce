@@ -19,5 +19,8 @@ public interface AdminAccessRole {
     @EntityPolicy(entityName = "Status", actions = {EntityPolicyAction.ALL})
     @EntityPolicy(entityName = "User", actions = {EntityPolicyAction.ALL})
     @EntityPolicy(entityName = "Product", actions = {EntityPolicyAction.READ})
+    @EntityPolicy(entityName = "ProductCartItem", actions = EntityPolicyAction.ALL)
+    @EntityPolicy(entityName = "Cart", actions = EntityPolicyAction.ALL)
+    @EntityPolicy(entityName = "Order", actions = EntityPolicyAction.ALL)
     void adminAccess();
 }

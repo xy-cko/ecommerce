@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class CartService {
@@ -24,17 +27,15 @@ public class CartService {
     @Transactional
     public void processCheckOut(Cart cart, PaymentType paymentType) {
         try {
-            // Create order
             User user = cart.getCustomer();
-            Order order = dataManager.create(Order.class);
-            order.setCart(cart);
+
             Status status = dataManager.load(Status.class)
                     .query("SELECT s FROM Status s WHERE s.name = 'checked out'")
                     .one();
-            order.setStatus(status);
-            order.setDate(LocalDate.now());
             cart.setStatus(status);
-            order.setTotal(calculateTotal(cart));
+            cart.setPaymentType(paymentType);
+            cart.setCheckedOutDate(LocalDate.now());
+            cart.setTotal(calculateTotal(cart));
             List<ProductCartItem> productItemsInCart = dataManager.load(ProductCartItem.class)
                             .condition(PropertyCondition.equal("cart", cart)).list();
             for(ProductCartItem productItems : productItemsInCart) {
@@ -51,7 +52,6 @@ public class CartService {
                 }
             }
             dataManager.save(user);
-            dataManager.save(order);
             dataManager.save(cart);
 
         } catch (Exception e) {
@@ -88,6 +88,7 @@ public class CartService {
             newItem.setProduct(product);
             newItem.setUnit(units);
             newItem.setAmount(units * product.getPrice());
+            dataManager.save(cart);
             dataManager.save(newItem);
         }
         product.setStock(product.getStock().subtract(BigInteger.valueOf(units)));
@@ -104,6 +105,7 @@ public class CartService {
                 .orElseGet(() -> {
                     Cart newCart = dataManager.create(Cart.class);
                     newCart.setCustomer(user);
+                    newCart.setCustomerName(user.getUsername());
                     newCart.setStatus(dataManager.load(Status.class).condition(PropertyCondition.equal("name", "not checked out")).one());
                     return dataManager.save(newCart);
                 });

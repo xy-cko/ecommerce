@@ -1,0 +1,30 @@
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://profileView.title">
+    <data>
+        <collection id="profileDc"
+                    class="com.company.ecommerce.entity.User">
+            <loader id="profileDl">
+                <query>
+                    <![CDATA[
+                    select e from User e where e.id = :current_user_id
+                ]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="userDc" class="com.company.ecommerce.entity.User"/>
+    </data>
+    <layout>
+        <vbox>
+            <textField id="userNameField" dataContainer="userDc" property="username" readOnly="true"
+                       label="msg://userNameField.label"/>
+            <textField id="firstNameField" dataContainer="userDc" property="firstName"
+                       label="msg://firstNameField.label" readOnly="true"/>
+            <textField id="LastNameField" dataContainer="userDc" property="lastName"
+                       label="msg://LastNameField.label" readOnly="true"/>
+            <textField id="emailField" dataContainer="userDc" property="email" label="msg://emailField.label"
+                       readOnly="true"/>
+            <textField id="balanceField" dataContainer="userDc" property="balance" label="msg://balanceField.label"
+                       readOnly="true"/>
+        </vbox>
+    </layout>
+</view>

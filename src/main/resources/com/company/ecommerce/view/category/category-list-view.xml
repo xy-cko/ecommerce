@@ -6,9 +6,7 @@
     <data>
         <collection id="categoriesDc"
                     class="com.company.ecommerce.entity.Category">
-            <fetchPlan extends="_base">
-                <property name="parent" fetch="JOIN" fetchPlan="_base"/>
-            </fetchPlan>
+            <fetchPlan extends="_base"/>
             <loader id="categoriesDl" readOnly="true">
                 <query>
                     <![CDATA[select e from Category e]]>
@@ -19,7 +17,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -28,13 +25,8 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="categoriesDl">
-            <properties include=".*"/>
-        </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="categoriesDataGrid.createAction"/>
-            <button id="removeButton" action="categoriesDataGrid.removeAction"/>
             <simplePagination id="pagination" dataLoader="categoriesDl"/>
         </hbox>
         <dataGrid id="categoriesDataGrid"
@@ -44,11 +36,9 @@
                   columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
-                <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
                 <column property="name"/>
-                <column property="parent"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

@@ -2,18 +2,17 @@
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
     <menu id="application" title="msg://com.company.ecommerce/menu.application.title" opened="true">
-        <item view="User.list" title="msg://com.company.ecommerce.view.user/UserListView.title"/>
-        <item view="AllProduct.list" title="msg://com.company.ecommerce.view.product/allProductListView.title"/>
-        <item view="MyProduct.list" title="msg://com.company.ecommerce.view.product/myProductListView.title"/>
-        <item view="MyCartItem.list" title="msg://com.company.ecommerce.view.productcartitem/myCartItemListView.title"/>
-        <item view="Status.list" title="msg://com.company.ecommerce.view.status/statusListView.title"/>
+        <item view="ProfileView" title="msg://com.company.ecommerce.view.profile/profileView.title"/>
         <item view="RequestedProduct.list"
               title="msg://com.company.ecommerce.view.product/requestedProductListView.title"/>
+        <item view="User.list" title="msg://com.company.ecommerce.view.user/UserListView.title"/>
+        <item view="AllProduct.list" title="msg://com.company.ecommerce.view.product/allProductListView.title"/>
+        <item view="Category.list" title="msg://com.company.ecommerce.view.category/categoryListView.title"/>
+        <item view="MyProduct.list" title="msg://com.company.ecommerce.view.product/myProductListView.title"/>
         <item view="VendorOrderItem.list"
               title="msg://com.company.ecommerce.view.productcartitem/vendorOrderItemListView.title"/>
-        <item view="Category.list" title="msg://com.company.ecommerce.view.category/categoryListView.title"/>
+        <item view="MyCartItem.list" title="msg://com.company.ecommerce.view.productcartitem/myCartItemListView.title"/>
         <item view="MyOrder.list" title="msg://com.company.ecommerce.view.cart/myOrderListView.title"/>
-        <item view="OrderItem.list" title="msg://com.company.ecommerce.view.productcartitem/orderItemListView.title"/>
     </menu>
 
 </menu-config>

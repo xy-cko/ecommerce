@@ -9,6 +9,7 @@
                 <query>
                     <![CDATA[
                     select p from Product p
+                    where p.isAccepted = 'accepted'
                     order by p.unitsSold desc
                 ]]>
                 </query>
@@ -34,7 +35,6 @@
             </header>
         </navigationBar>
         <drawerLayout>
-            <section id="section" classNames="jmix-main-view-section">
                 <h2 id="applicationTitle"
                     classNames="jmix-main-view-application-title">
                     <anchor id="baseLink"
@@ -53,7 +53,6 @@
                             action="logoutAction"
                             classNames="jmix-logout-button"/>
                 </footer>
-            </section>
         </drawerLayout>
         <initialLayout>
             <header text="msg://header1.text" themeNames="badge" height="200%"/>
@@ -69,10 +68,9 @@
                     </hbox>
                     <image id="product1Image" property="image"
                            dataContainer="product1Dc"
-                           width="380px" height="500px"
+                           maxWidth="380px" maxHeight="400px"
                            classNames="image-preview"/>
                 </vbox>
-
                 <vbox>
                     <hbox>
                         <textField id="product2Name" property="name" dataContainer="product2Dc" readOnly="true"/>
@@ -85,7 +83,6 @@
                            width="380px" height="500px"
                            classNames="image-preview"/>
                 </vbox>
-
                 <vbox>
                     <hbox>
                         <textField id="product3Name" property="name" dataContainer="product3Dc" readOnly="true"/>
@@ -98,7 +95,6 @@
                            width="380px" height="500px"
                            classNames="image-preview"/>
                 </vbox>
-
             </hbox>
         </initialLayout>
     </appLayout>

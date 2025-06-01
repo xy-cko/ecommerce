@@ -20,27 +20,12 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="usersDl">
-            <properties include=".*"/>
-        </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createButton" action="usersDataGrid.createAction"/>
-            <button id="editButton" action="usersDataGrid.editAction"/>
-            <button id="removeButton" action="usersDataGrid.removeAction"/>
             <button id="showRoleAssignmentsButton" action="usersDataGrid.showRoleAssignmentsAction"/>
-            <dropdownButton id="additionalButton" text="msg://additionalMenu" icon="COG">
-                <items>
-                    <actionItem id="changePasswordItem" ref="usersDataGrid.changePasswordAction"/>
-                    <actionItem id="resetPasswordItem" ref="usersDataGrid.resetPasswordAction"/>
-                    <actionItem id="showUserSubstitutionsItem" ref="usersDataGrid.showUserSubstitutionsAction"/>
-                </items>
-            </dropdownButton>
             <simplePagination id="pagination" dataLoader="usersDl"/>
         </hbox>
         <dataGrid id="usersDataGrid"
@@ -49,13 +34,7 @@
                   minHeight="20em"
                   dataContainer="usersDc">
             <actions>
-                <action id="createAction" type="list_create"/>
-                <action id="editAction" type="list_edit"/>
-                <action id="removeAction" type="list_remove"/>
                 <action id="showRoleAssignmentsAction" type="sec_showRoleAssignments"/>
-                <action id="changePasswordAction" type="sec_changePassword"/>
-                <action id="resetPasswordAction" type="sec_resetPassword"/>
-                <action id="showUserSubstitutionsAction" type="sec_showUserSubstitutions"/>
             </actions>
             <columns resizable="true">
                 <column property="username"/>

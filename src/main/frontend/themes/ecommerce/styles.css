@@ -2,3 +2,28 @@
 @import url('view/main-view.css');
 @import url('view/main-view-top-menu.css');
 @import url('view/login-view.css');
+
+
+#bestSellingBox {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    #bestSellingBox {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.productForm {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    .productForm {
+        display: flex;
+        flex-direction: column;
+    }
+}

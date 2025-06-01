@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RegistrationService {
-    // Use UnconstrainedDataManager to bypass data access check (https://docs.jmix.io/jmix/security/authorization.html#data-access-checks)
-    // when saving entities in anonymous session.
     private final UnconstrainedDataManager unconstrainedDataManager;
 
     public RegistrationService(UnconstrainedDataManager unconstrainedDataManager) {

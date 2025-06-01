@@ -8,6 +8,7 @@
                     class="com.company.ecommerce.entity.ProductCartItem">
             <fetchPlan extends="_base">
                 <property name="product" fetchPlan="_base"/>
+                <property name="cart" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="productCartItemsDl" readOnly="true">
                 <query>
@@ -15,11 +16,18 @@
                 </query>
             </loader>
         </collection>
+        <collection id="categoryDc" class="com.company.ecommerce.entity.Category">
+            <fetchPlan extends="_base"/>
+            <loader id="categoryDl" readOnly="true">
+                <query>
+                    <![CDATA[select c from Category c]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -28,10 +36,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="productCartItemsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <propertyFilter property="product.name" operation="CONTAINS" dataLoader="productCartItemsDl" label="product name contains:"/>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <simplePagination id="pagination" dataLoader="productCartItemsDl"/>
         </hbox>
@@ -47,11 +52,8 @@
                 <column property="unit"/>
                 <column property="amount"/>
                 <column property="date"/>
-                <column>
-                    <text property="cart.customer.username"
-                          caption="msg://customer"
-                          sortProperty="cart.customer.username"/>
-                </column>
+                <column property="paymentType"/>
+                <column property="cart.customerName" header="msg://column.header"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

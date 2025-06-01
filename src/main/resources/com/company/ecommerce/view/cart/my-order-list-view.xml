@@ -7,14 +7,10 @@
         <collection id="cartsDc"
                     class="com.company.ecommerce.entity.Cart">
             <fetchPlan extends="_base">
-                <property name="status" fetchPlan="_base"/>
-                <property name="order" fetchPlan="_base">
-                    <property name="status" fetchPlan="_base"/>
-                </property>
             </fetchPlan>
             <loader id="cartsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Cart e where e.status.name = 'checked out' and e.customer.id = :current_user_id]]>
+                    <![CDATA[select e from Cart e where e.customer.id = :current_user_id]]>
                 </query>
             </loader>
         </collection>
@@ -22,7 +18,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -31,10 +26,6 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="cartsDl">
-            <properties include=".*"/>
-        </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <simplePagination id="pagination" dataLoader="cartsDl"/>
         </hbox>
@@ -46,8 +37,10 @@
             <actions>
             </actions>
             <columns resizable="true">
+                <column property="paymentType"/>
+                <column property="checkedOutDate"/>
+                <column property="total"/>
                 <column property="status"/>
-                <column property="order"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

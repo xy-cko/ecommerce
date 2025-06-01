@@ -6,40 +6,51 @@
     <data>
         <collection id="productsDc"
                     class="com.company.ecommerce.entity.Product">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+            </fetchPlan>
             <loader id="productsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Product e where e.isAccepted = true]]>
+                    <![CDATA[select e from Product e where e.isAccepted = 'accepted']]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="categoryDc" class="com.company.ecommerce.entity.Category">
+            <fetchPlan extends="_base"/>
+            <loader id="categoryDl" readOnly="true">
+                <query>
+                    <![CDATA[select c from Category c]]>
                 </query>
             </loader>
         </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
-        <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
-        </urlQueryParameters>
     </facets>
     <actions>
         <action id="selectAction" type="lookup_select"/>
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-            <genericFilter id="genericFilter"
-                           dataLoader="productsDl">
-                <properties include=".*"/>
-            </genericFilter>
+        <propertyFilter property="category" operation="EQUAL" dataLoader="productsDl">
+            <entityComboBox metaClass="Category" itemsContainer="categoryDc">
+                <actions>
+                    <action id="lookup" type="entity_lookup"/>
+                    <action id="clear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+        </propertyFilter>
+        <propertyFilter property="name" operation="CONTAINS" dataLoader="productsDl" label="name contains:"/>
             <dataGrid id="productsDataGrid"
                       width="100%"
                       minHeight="20em"
                       dataContainer="productsDc"
                       columnReorderingAllowed="true">
                 <columns resizable="true">
-                    <column property="name"/>
-                    <column property="price"/>
-                    <column property="stock"/>
-                    <column property="unitsSold"/>
-                    <column property="vendor"/>
+                    <column property="name" header="msg://column2.header"/>
+                    <column property="price" header="msg://column.header"/>
+                    <column property="stock" header="msg://column3.header"/>
+                    <column property="unitsSold" header="msg://column1.header"/>
+                    <column property="vendor" header="msg://column4.header"/>
                     <column property="category"/>
                 </columns>
             </dataGrid>

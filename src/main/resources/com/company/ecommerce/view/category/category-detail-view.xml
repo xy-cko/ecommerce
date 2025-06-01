@@ -5,9 +5,7 @@
     <data>
         <instance id="categoryDc"
                   class="com.company.ecommerce.entity.Category">
-            <fetchPlan extends="_base">
-                <property name="parent" fetch="JOIN" fetchPlan="_base"/>
-            </fetchPlan>
+            <fetchPlan extends="_base"/>
             <loader id="categoryDl"/>
         </instance>
     </data>
@@ -25,12 +23,6 @@
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
             <textField id="nameField" property="name"/>
-            <entityPicker id="parentField" property="parent">
-                <actions>
-                    <action id="entityLookupAction" type="entity_lookup"/>
-                    <action id="entityClearAction" type="entity_clear"/>
-                </actions>
-            </entityPicker>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
